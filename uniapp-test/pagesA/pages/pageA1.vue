@@ -6,8 +6,8 @@
 
 <script>
 export default {
+	name:"pageA1",
 	data() {
-		name:"pageA1",
 		return {
 			title: 'Hello'
 		};
