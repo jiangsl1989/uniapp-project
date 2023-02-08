@@ -38,11 +38,22 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wx8e06c33f04d9ea0e",
         "setting" : {
             "urlCheck" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "展示给客户看的信息"
+            }
+        },
+        "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ]
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {}
+        }
+    }
 }

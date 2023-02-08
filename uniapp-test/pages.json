@@ -8,6 +8,10 @@
 			}
 		},
 		{
+			"path": "pages/tabbar/tabbar-1/gd-map",
+			"style": {}
+		},
+		{
 			"path": "pages/setting/setting",
 			"style": {}
 		},

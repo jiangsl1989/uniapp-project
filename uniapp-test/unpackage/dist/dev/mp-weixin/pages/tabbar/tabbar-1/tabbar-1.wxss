@@ -1,7 +1,12 @@
 
 .content {
+	padding: 5px;
 	text-align: center;
 	height: 400rpx;
 	margin-top: 200rpx;
+}
+.in {
+	padding: 10px;
+	background-color: antiquewhite;
 }
 

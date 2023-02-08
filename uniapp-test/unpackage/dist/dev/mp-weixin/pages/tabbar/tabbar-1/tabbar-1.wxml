@@ -1,1 +1,1 @@
-<view class="content">页面 - 1</view>
+<view class="content"><button type="primary" data-event-opts="{{[['tap',[['getLocation',['$event']]]]]}}" bindtap="__e">获取当前位置</button><view style="padding:5px;"><input class="in" placeholder="请选择地址..." value="{{value}}"/></view><view style="padding:5px;"></view><button type="primary" data-event-opts="{{[['tap',[['getMapLocation0',['$event']]]]]}}" bindtap="__e">获取当前位置(高德)</button><view style="padding:5px;"><input class="in" placeholder="(高德)请选择地址..." value="{{value2}}"/></view></view>

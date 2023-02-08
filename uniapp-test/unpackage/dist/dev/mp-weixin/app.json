@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tabbar/tabbar-1/tabbar-1",
+    "pages/tabbar/tabbar-1/gd-map",
     "pages/setting/setting",
     "pages/schema/schema",
     "pages/tabbar/tabbar-2/tabbar-2",
@@ -70,5 +71,14 @@
       ]
     }
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "展示给客户看的信息"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation"
+  ],
   "usingComponents": {}
 }
