@@ -98,6 +98,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uniRow: function () {
+      return __webpack_require__.e(/*! import() | uni_modules/uni-row/components/uni-row/uni-row */ "uni_modules/uni-row/components/uni-row/uni-row").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-row/components/uni-row/uni-row.vue */ 137))
+    },
+    uniCol: function () {
+      return __webpack_require__.e(/*! import() | uni_modules/uni-row/components/uni-col/uni-col */ "uni_modules/uni-row/components/uni-col/uni-col").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-row/components/uni-col/uni-col.vue */ 144))
+    },
+    uniEasyinput: function () {
+      return __webpack_require__.e(/*! import() | uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput */ "uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue */ 151))
+    },
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
@@ -135,7 +164,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -147,16 +176,98 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
-      title: 'Hello'
+      title: 'Hello',
+      value: "",
+      text: '地址:',
+      nvueWidth: 730
     };
   },
   onLoad: function onLoad() {},
-  methods: {}
+  methods: {
+    iconClick: function iconClick() {
+      var _this = this;
+      uni.chooseLocation({
+        success: function success(res) {
+          console.log("已选择地址", res);
+          _this.value = res.address + res.name;
+          // this.getRegionFn(res);
+        },
+
+        fail: function fail() {
+          // 如果用uni.chooseLocation没有获取到地理位置，则需要获取当前的授权信息，判断是否有地理授权信息
+          uni.getSetting({
+            success: function success(res) {
+              console.log(res);
+              var status = res.authSetting;
+              if (!status['scope.userLocation']) {
+                // 如果授权信息中没有地理位置的授权，则需要弹窗提示用户需要授权地理信息
+                uni.showModal({
+                  title: "是否授权当前位置",
+                  content: "需要获取您的地理位置，请确认授权，否则地图功能将无法使用",
+                  success: function success(tip) {
+                    if (tip.confirm) {
+                      // 如果用户同意授权地理信息，则打开授权设置页面，判断用户的操作
+                      uni.openSetting({
+                        success: function success(data) {
+                          // 如果用户授权了地理信息在，则提示授权成功
+                          if (data.authSetting['scope.userLocation'] === true) {
+                            uni.showToast({
+                              title: "授权成功",
+                              icon: "success",
+                              duration: 1000
+                            });
+                            // 授权成功后，然后再次chooseLocation获取信息
+                            uni.chooseLocation({
+                              success: function success(res) {
+                                console.log("详细地址", res);
+                                // this.getRegionFn(res);
+                              }
+                            });
+                          } else {
+                            uni.showToast({
+                              title: "授权失败",
+                              icon: "none",
+                              duration: 1000
+                            });
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            },
+            fail: function fail(res) {
+              uni.showToast({
+                title: "调用授权窗口失败",
+                icon: "none",
+                duration: 1000
+              });
+            }
+          });
+        }
+      });
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
