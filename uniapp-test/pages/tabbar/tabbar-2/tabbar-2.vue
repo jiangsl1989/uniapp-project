@@ -1,36 +1,109 @@
 <template>
 	<view>
+		<view>
+			<!--父页面调用子组件里的方法 设置ref  对应子组件里的 ref-->
+			<warning-page ref="message" :msgType="msgType" :messageText="messageText"></warning-page>
+		</view>
+		
 		<view class="set5px">
 			<uni-row>
 				<uni-col :span="4">
 					<view class="setCenter">
-						<text>{{text}}</text>
+						<text>姓名:</text>
 					</view>	
 				</uni-col>
 				<uni-col :span="20">
 					<view class="setCenter">
-						<uni-easyinput suffixIcon="map-pin-ellipse" v-model="value" placeholder="选择正确的地址" @iconClick="iconClick"></uni-easyinput>
+						<uni-easyinput v-model="name" placeholder="请输入姓名" />
 					</view>
 				</uni-col>
 			</uni-row>
+		</view>
+		
+		<view class="set5px">
+			<uni-row>
+				<uni-col :span="4">
+					<view class="setCenter">
+						<text>电话:</text>
+					</view>	
+				</uni-col>
+				<uni-col :span="20">
+					<view class="setCenter">
+						<uni-easyinput v-model="phone" placeholder="请输入电话" />
+					</view>
+				</uni-col>
+			</uni-row>
+		</view>
+		
+		<view class="set5px">
+			<uni-row>
+				<uni-col :span="4">
+					<view class="setCenter">
+						<text>地址:</text>
+					</view>	
+				</uni-col>
+				<uni-col :span="20">
+					<view class="setCenter">
+						<uni-easyinput suffixIcon="map-pin-ellipse" v-model="address" placeholder="请输入地址" @iconClick="iconClick"></uni-easyinput>
+					</view>
+				</uni-col>
+			</uni-row>
+		</view>
+		
+		<view class="set5px">
+			<uni-row>
+				<uni-col :span="4">
+					<view class="setCenter">
+						<text>详细地址:</text>
+					</view>	
+				</uni-col>
+				<uni-col :span="20">
+					<view>
+						<uni-easyinput type="textarea" v-model="fullAddress" placeholder="请输入详细地址" />
+					</view>
+				</uni-col>
+			</uni-row>
+		</view>
+		
+		<view class="set5px">
+			<button type="primary" @click="confirm">确定</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import warningPage from '@/pages/warning.vue'
 	export default {
+		components:{warningPage},
 		data() {
 			return {
 				title: 'Hello',
-				value:"",
-				text:'地址:',
-				nvueWidth: 730
+				name:"",
+				phone:"",
+				address:"",
+				fullAddress:"",
+				
+				msgType:"",
+				messageText:""
+				
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
+			
+			confirm() {
+				this.msgType = "success"
+				this.messageText = `这是一条${this.msgType}消息提示`
+				this.$refs.message.open();
+				
+				
+				uni.showToast({
+					title:"点击确认了"
+				})
+			},
+			
 			iconClick(){
 				
 				uni.chooseLocation({

@@ -170,36 +170,36 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var warningPage = function warningPage() {
+  __webpack_require__.e(/*! require.ensure | pages/warning */ "pages/warning").then((function () {
+    return resolve(__webpack_require__(/*! @/pages/warning.vue */ 184));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
+  components: {
+    warningPage: warningPage
+  },
   data: function data() {
     return {
       title: 'Hello',
-      value: "",
-      text: '地址:',
-      nvueWidth: 730
+      name: "",
+      phone: "",
+      address: "",
+      fullAddress: "",
+      msgType: "",
+      messageText: ""
     };
   },
   onLoad: function onLoad() {},
   methods: {
+    confirm: function confirm() {
+      this.msgType = "success";
+      this.messageText = "\u8FD9\u662F\u4E00\u6761".concat(this.msgType, "\u6D88\u606F\u63D0\u793A");
+      this.$refs.message.open();
+      uni.showToast({
+        title: "点击确认了"
+      });
+    },
     iconClick: function iconClick() {
       var _this = this;
       uni.chooseLocation({

@@ -100,6 +100,8 @@ exports.default = void 0;
 var _default = {
   onLaunch: function onLaunch() {
     console.log('App Launch');
+
+    //这里设置tabBar的样式，index:下标位置，text:角标信息，不写代表为点(.)
     setTimeout(function () {
       uni.setTabBarBadge({
         index: 1,
