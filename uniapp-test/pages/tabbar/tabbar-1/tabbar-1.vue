@@ -1,5 +1,12 @@
 <template>
 	<view class="content">
+		
+		<view>
+			<uni-card title="基础卡片" extra="额外信息">
+				<text class="uni-body">这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text>
+			</uni-card>
+		</view>
+		
 		<button type="primary" @click="getLocation">获取当前位置</button>
 		
 		<view style="padding: 5px;">
@@ -183,7 +190,7 @@
 	padding: 5px;
 	text-align: center;
 	height: 400upx;
-	margin-top: 200upx;
+	margin-top: 20upx;
 }
 
 .in {

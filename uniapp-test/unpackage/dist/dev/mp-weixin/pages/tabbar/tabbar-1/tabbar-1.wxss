@@ -3,7 +3,7 @@
 	padding: 5px;
 	text-align: center;
 	height: 400rpx;
-	margin-top: 200rpx;
+	margin-top: 20rpx;
 }
 .in {
 	padding: 10px;
