@@ -1,6 +1,20 @@
 <template>
 	<view class="content">
-		页面 - pageA1
+		<text>pageA1 页面</text>
+		<view>
+			<uni-row>
+				<uni-col :span="12">
+					<view>
+						123
+					</view>
+				</uni-col>
+				<uni-col :span="12">
+					<view>
+						456
+					</view>
+				</uni-col>
+			</uni-row>
+		</view>
 	</view>
 </template>
 
