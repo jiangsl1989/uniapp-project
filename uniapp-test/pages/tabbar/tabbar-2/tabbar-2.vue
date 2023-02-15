@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view>
-			<!--父页面调用子组件里的方法 设置ref  对应子组件里的 ref-->
-			<warning-page ref="message" :msgType="msgType" :messageText="messageText"></warning-page>
+			<!--父页面调用子组件里的方法 设置ref-->
+			<warning-page ref="son" :msgType="msgType" :messageText="messageText"></warning-page>
 		</view>
 		
 		<view class="set5px">
@@ -94,9 +94,10 @@
 		methods: {
 			
 			confirm() {
-				this.msgType = "success"
+				this.msgType = "error"
 				this.messageText = `这是一条${this.msgType}消息提示`
-				this.$refs.message.open();
+				//son对应的ref
+				this.$refs.son.openWarning()
 				
 				
 				uni.showToast({

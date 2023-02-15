@@ -1,8 +1,7 @@
 <template>
 	<view>
-		<!-- 提示信息弹窗  ref对应父页面里的ref  
+		<!-- 提示信息弹窗   
 			type="message":
-			
 			top	顶部弹出
 			center	居中弹出
 			bottom	底部弹出
@@ -37,8 +36,9 @@
 		},
 		
 		methods:{
-			open(){
-				this.$refs.message.open()
+			//子组件内的方法，message对应该页面上的 ref='message'
+			openWarning(){
+				this.$refs.message.open();
 			}
 		}
 	};

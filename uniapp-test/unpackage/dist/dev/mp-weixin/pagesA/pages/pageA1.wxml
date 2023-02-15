@@ -1,1 +1,1 @@
-<view class="content">页面 - pageA1</view>
+<view class="content"><text>pageA1 页面</text><view><uni-row vue-id="6d2a8988-1" bind:__l="__l" vue-slots="{{['default']}}"><uni-col vue-id="{{('6d2a8988-2')+','+('6d2a8988-1')}}" span="{{12}}" bind:__l="__l" vue-slots="{{['default']}}"><view>123</view></uni-col><uni-col vue-id="{{('6d2a8988-3')+','+('6d2a8988-1')}}" span="{{12}}" bind:__l="__l" vue-slots="{{['default']}}"><view>456</view></uni-col></uni-row></view></view>
