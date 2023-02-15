@@ -99,7 +99,6 @@
 				//son对应的ref
 				this.$refs.son.openWarning()
 				
-				
 				uni.showToast({
 					title:"点击确认了"
 				})
