@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		页面 - pagesB1
+		分包 页面 - pagesB1
 	</view>
 </template>
 

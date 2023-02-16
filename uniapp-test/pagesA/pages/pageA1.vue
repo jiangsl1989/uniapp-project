@@ -1,20 +1,6 @@
 <template>
 	<view class="content">
-		<text>pageA1 页面</text>
-		<view>
-			<uni-row>
-				<uni-col :span="12">
-					<view>
-						123
-					</view>
-				</uni-col>
-				<uni-col :span="12">
-					<view>
-						456
-					</view>
-				</uni-col>
-			</uni-row>
-		</view>
+		<text>分包 pageA1 页面</text>
 	</view>
 </template>
 
