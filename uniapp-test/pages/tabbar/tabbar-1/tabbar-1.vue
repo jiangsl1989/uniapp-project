@@ -17,12 +17,17 @@
 		<view style="padding: 5px;">
 			<input class="in" placeholder="(高德)请选择地址..." :value="value2"></input>
 		</view>
+		<view class="contains">
+			<share-page></share-page>
+		</view>
 	</view>
 </template>
 
 <script>
 	import QQMapWX from "@/components/qqmap-wx-jssdk.js"
+	import sharePage from '@/pagesA/pages/share-page.vue'
 	export default {
+		components:{sharePage},
 		data() {
 			return {
 				title: 'Hello',

@@ -25,5 +25,8 @@ export default {
 
 <style lang="scss">
 	/*每个页面公共css */ 
+	.contains {
+		padding: 10px;
+	}
 	
 </style>

@@ -165,7 +165,18 @@ var _qqmapWxJssdk = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 //
 //
+//
+//
+//
+var sharePage = function sharePage() {
+  __webpack_require__.e(/*! require.ensure | pagesA/pages/share-page */ "pagesA/pages/share-page").then((function () {
+    return resolve(__webpack_require__(/*! @/pagesA/pages/share-page.vue */ 212));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
+  components: {
+    sharePage: sharePage
+  },
   data: function data() {
     return {
       title: 'Hello',
