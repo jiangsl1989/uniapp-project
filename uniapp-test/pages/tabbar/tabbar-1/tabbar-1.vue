@@ -1,20 +1,23 @@
 <template>
-	<view class="content">
-		
-		<view>
+	<view>
+		<view class="contains">
+			<uni-datetime-picker v-model="range" type="daterange" @maskClick="maskClick" />
+		</view>
+		<view class="contains">
 			<uni-card title="基础卡片" extra="额外信息">
 				<text class="uni-body">这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text>
 			</uni-card>
 		</view>
-		
-		<button type="primary" @click="getLocation">获取当前位置</button>
-		
-		<view style="padding: 5px;">
+		<view class="contains">
+			<button type="primary" @click="getLocation">获取当前位置</button>
+		</view>
+		<view class="contains">
 			<input class="in" placeholder="请选择地址..." :value="value"></input>
 		</view>
-		<view style="padding: 5px;"></view>
-		<button type="primary" @click="getMapLocation0">获取当前位置(高德)</button>
-		<view style="padding: 5px;">
+		<view class="contains">
+			<button type="primary" @click="getMapLocation0">获取当前位置(高德)</button>
+		</view>
+		<view class="contains">
 			<input class="in" placeholder="(高德)请选择地址..." :value="value2"></input>
 		</view>
 		<view class="contains">
@@ -30,6 +33,7 @@
 		components:{sharePage},
 		data() {
 			return {
+				mode: 'range',
 				title: 'Hello',
 				value:"",
 				value2:"",
@@ -186,6 +190,9 @@
 				})
 			},
 
+			maskClick(e){
+				console.log('maskClick事件:', e);
+			}
 		}
 	};
 </script>

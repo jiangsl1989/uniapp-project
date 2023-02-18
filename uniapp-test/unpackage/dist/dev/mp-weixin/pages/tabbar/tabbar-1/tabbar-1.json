@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "uni-app",
   "usingComponents": {
+    "uni-datetime-picker": "/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker",
+    "uni-card": "/uni_modules/uni-card/components/uni-card/uni-card",
     "share-page": "/pagesA/pages/share-page"
   }
 }
