@@ -207,6 +207,7 @@
 
 .in {
 	padding: 10px;
+	border: 1;
 	background-color: antiquewhite;
 }
 </style>
