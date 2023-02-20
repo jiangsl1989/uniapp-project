@@ -4,6 +4,9 @@
 			<uni-datetime-picker v-model="range" type="daterange" @maskClick="maskClick" />
 		</view>
 		<view class="contains">
+			<uni-search-bar placeholder="自定义背景色" bgColor="#EEEEEE" @confirm="search" />
+		</view>
+		<view class="contains">
 			<uni-card title="基础卡片" extra="额外信息">
 				<text class="uni-body">这是一个基础卡片示例，此示例展示了一个标题加标题额外信息的标准卡片。</text>
 			</uni-card>
@@ -41,7 +44,8 @@
 				formData2:{
 					longitude:null,
 					latitude:null
-				}
+				},
+				value15: '111'
 			};
 		},
 		onLoad() {},
@@ -192,7 +196,15 @@
 
 			maskClick(e){
 				console.log('maskClick事件:', e);
-			}
+			},
+			
+			
+			search(res) {
+				uni.showToast({
+					title: '搜索：' + res.value,
+					icon: 'none'
+				})
+			},
 		}
 	};
 </script>
@@ -210,4 +222,5 @@
 	border: 1;
 	background-color: antiquewhite;
 }
+
 </style>

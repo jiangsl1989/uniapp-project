@@ -4,7 +4,6 @@
 			<!--父页面调用子组件里的方法 设置ref-->
 			<warning-page ref="son" :msgType="msgType" :messageText="messageText"></warning-page>
 		</view>
-		
 		<view class="set5px">
 			<uni-row>
 				<uni-col :span="4">

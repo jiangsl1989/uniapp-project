@@ -103,6 +103,9 @@ try {
     uniDatetimePicker: function () {
       return Promise.all(/*! import() | uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker.vue */ 123))
     },
+    uniSearchBar: function () {
+      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 274))
+    },
     uniCard: function () {
       return __webpack_require__.e(/*! import() | uni_modules/uni-card/components/uni-card/uni-card */ "uni_modules/uni-card/components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-card/components/uni-card/uni-card.vue */ 135))
     },
@@ -197,6 +200,9 @@ var _qqmapWxJssdk = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 //
 //
+//
+//
+//
 var sharePage = function sharePage() {
   __webpack_require__.e(/*! require.ensure | pagesA/pages/share-page */ "pagesA/pages/share-page").then((function () {
     return resolve(__webpack_require__(/*! @/pagesA/pages/share-page.vue */ 142));
@@ -216,7 +222,8 @@ var _default = {
       formData2: {
         longitude: null,
         latitude: null
-      }
+      },
+      value15: '111'
     };
   },
   onLoad: function onLoad() {},
@@ -368,6 +375,12 @@ var _default = {
     },
     maskClick: function maskClick(e) {
       console.log('maskClick事件:', e);
+    },
+    search: function search(res) {
+      uni.showToast({
+        title: '搜索：' + res.value,
+        icon: 'none'
+      });
     }
   }
 };

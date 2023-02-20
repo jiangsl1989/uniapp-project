@@ -11130,6 +11130,66 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 279:
+/*!**************************************************************************************************************************!*\
+  !*** D:/jiangsl-workspace/uniapp-project/uniapp-test/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 280));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 281));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 282));
+var _default = {
+  en: _en.default,
+  'zh-Hans': _zhHans.default,
+  'zh-Hant': _zhHant.default
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 280:
+/*!*************************************************************************************************************************!*\
+  !*** D:/jiangsl-workspace/uniapp-project/uniapp-test/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
+  \*************************************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"Search enter content\"}");
+
+/***/ }),
+
+/***/ 281:
+/*!******************************************************************************************************************************!*\
+  !*** D:/jiangsl-workspace/uniapp-project/uniapp-test/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
+  \******************************************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"请输入搜索内容\"}");
+
+/***/ }),
+
+/***/ 282:
+/*!******************************************************************************************************************************!*\
+  !*** D:/jiangsl-workspace/uniapp-project/uniapp-test/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
+  \******************************************************************************************************************************/
+/*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-bar.placeholder\":\"請輸入搜索內容\"}");
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
