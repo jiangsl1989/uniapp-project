@@ -251,7 +251,6 @@
 				console.log('maskClick事件:', e);
 			},
 			
-			
 			search(res) {
 				uni.showToast({
 					title: '搜索：' + res.value,
