@@ -143,7 +143,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var pagesB1 = function pagesB1() {
   __webpack_require__.e(/*! require.ensure | pagesB/pages/pagesB1 */ "pagesB/pages/pagesB1").then((function () {
-    return resolve(__webpack_require__(/*! @/pagesB/pages/pagesB1.vue */ 154));
+    return resolve(__webpack_require__(/*! @/pagesB/pages/pagesB1.vue */ 165));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

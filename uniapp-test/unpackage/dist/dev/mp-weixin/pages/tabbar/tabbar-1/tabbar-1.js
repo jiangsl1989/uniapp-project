@@ -104,10 +104,10 @@ try {
       return Promise.all(/*! import() | uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker.vue */ 123))
     },
     uniSearchBar: function () {
-      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 274))
+      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 135))
     },
     uniCard: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-card/components/uni-card/uni-card */ "uni_modules/uni-card/components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-card/components/uni-card/uni-card.vue */ 135))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-card/components/uni-card/uni-card */ "uni_modules/uni-card/components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-card/components/uni-card/uni-card.vue */ 146))
     },
   }
 } catch (e) {
@@ -205,7 +205,7 @@ var _qqmapWxJssdk = _interopRequireDefault(__webpack_require__(/*! @/components/
 //
 var sharePage = function sharePage() {
   __webpack_require__.e(/*! require.ensure | pagesA/pages/share-page */ "pagesA/pages/share-page").then((function () {
-    return resolve(__webpack_require__(/*! @/pagesA/pages/share-page.vue */ 142));
+    return resolve(__webpack_require__(/*! @/pagesA/pages/share-page.vue */ 153));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
@@ -214,7 +214,7 @@ var _default = {
   },
   data: function data() {
     return {
-      mode: 'range',
+      range: ['2021-02-1', '2021-3-28'],
       title: 'Hello',
       value: "",
       value2: "",
@@ -229,11 +229,11 @@ var _default = {
   onLoad: function onLoad() {},
   methods: {
     getLocation: function getLocation() {
-      var _this = this;
+      var _this2 = this;
       uni.chooseLocation({
         success: function success(res) {
           console.log("已选择地址", res);
-          _this.value = res.address + res.name;
+          _this2.value = res.address + res.name;
           // this.getRegionFn(res);
         },
 
@@ -293,19 +293,69 @@ var _default = {
       });
     },
     getMapLocation0: function getMapLocation0() {
-      var _this2 = this;
+      var _this3 = this;
+      console.log("点击高德地图");
+      var _this = this;
       uni.getLocation({
-        type: 'wgs84',
+        type: 'gcj02',
+        geocode: true,
         success: function success(res) {
           console.log("gd,res", res);
-          if (_this2.formData2.longitude && _this2.formData2.latitude) {
-            uni.navigateTo({
-              url: "/pages/tabbar/tabbar-1/gd-map?lng=" + _this2.formData2.longitude + "&lat=" + _this2.formData2.latitude
+          if (uni.getSystemInfoSync().platform == 'android') {
+            uni.chooseLocation({
+              latitude: res.latitude,
+              longitude: res.longitude,
+              success: function success(resp) {
+                console.log("选择", resp);
+                _this.value2 = resp.address + resp.name;
+                /**
+                 * 逆地理编码
+                 * 参考 https://lbs.amap.com/api/webservice/guide/api/georegeo
+                 */
+                // uni.request({
+                // 	url:"https://restapi.amap.com/v3/geocode/regeo",
+                // 	method:'get',
+                // 	data: {
+                // 	  location: resp.longitude + "," + resp.latitude,//位置坐标:格式：location=lng<经度>,lat<纬度>
+                // 	  key: '434414855eda40228059e3c5754ccf07',//开发密钥（web服务Key）
+                // 	  radius: 0,
+                // 	  extensions: 'all',//base，返回基本地址信息；all 时会返回基本地址信息、附近 POI 内容、道路信息以及道路交叉口信息
+                // 	  batch: false,
+                // 	  roadlevel: 1
+                // 	},
+                // 	success: function (res) {
+                // 		console.log(res,'====');
+                // 	  const data = res.data.regeocode;
+                // 	  const province = data.addressComponent.province;//省
+                // 	  const city = data.addressComponent.city;//市
+                // 	  const district = data.addressComponent.district;//区
+                // 	  const township = data.addressComponent.township;//街道
+                // 	  const address = township + data?.pois[0]?.name + data?.pois[0]?.address;
+                // 	  const reasult = {
+                // 		  province,
+                // 		  city,
+                // 		  district,
+                // 		  address,
+                // 	  }
+                // 	  success(reasult);
+                // 	},
+                // 	error: function (err) {
+                // 		uni.$u.toast("服务端错误，请重试");
+                // 	}
+
+                // })
+              }
             });
-          } else {
-            uni.navigateTo({
-              url: "/pages/tabbar/tabbar-1/gd-map?lng=" + res.longitude + "&lat=" + res.latitude
-            });
+          } else if (uni.getSystemInfoSync().platform == 'ios') {} else {
+            if (_this3.formData2.longitude && _this3.formData2.latitude) {
+              uni.navigateTo({
+                url: "/pages/tabbar/tabbar-1/gd-map?lng=" + _this3.formData2.longitude + "&lat=" + _this3.formData2.latitude
+              });
+            } else {
+              uni.navigateTo({
+                url: "/pages/tabbar/tabbar-1/gd-map?lng=" + res.longitude + "&lat=" + res.latitude
+              });
+            }
           }
         },
         fail: function fail() {
@@ -328,7 +378,7 @@ var _default = {
                               duration: 1000
                             });
                             uni.getLocation({
-                              type: 'wgs84',
+                              type: 'gcj02',
                               success: function success(res) {
                                 console.log('当前位置的经度：' + res.longitude);
                                 console.log('当前位置的纬度：' + res.latitude);
@@ -351,7 +401,7 @@ var _default = {
                 });
               } else {
                 uni.getLocation({
-                  type: 'wgs84',
+                  type: 'gcj02',
                   success: function success(res) {
                     console.log('当前位置的经度：' + res.longitude);
                     console.log('当前位置的纬度：' + res.latitude);
