@@ -12,13 +12,13 @@
 			</uni-card>
 		</view>
 		<view class="contains">
-			<button type="primary" @click="getLocation">获取当前位置(小程序,APP不适用)</button>
+			<button type="primary" @click="getLocationWx">获取当前位置(小程序,APP不适用)</button>
 		</view>
 		<view class="contains">
 			<input class="in" placeholder="请选择地址..." :value="value"></input>
 		</view>
 		<view class="contains">
-			<button type="primary" @click="getMapLocation0">获取当前位置(高德,小程序+APP)</button>
+			<button type="primary" @click="getMapLocationApp">获取当前位置(高德,小程序+APP)</button>
 		</view>
 		<view class="contains">
 			<input class="in" placeholder="(高德)请选择地址..." :value="value2"></input>
@@ -50,7 +50,7 @@
 		},
 		onLoad() {},
 		methods: {
-			getLocation(){
+			getLocationWx(){
 				uni.chooseLocation({
 					success:(res)=> {
 						console.log("已选择地址",res);
@@ -113,7 +113,7 @@
 				});
 			},
 			
-			getMapLocation0(){
+			getMapLocationApp(){
 				console.log("点击高德地图")
 				var _this = this;
 				uni.getLocation({
@@ -121,54 +121,61 @@
 					geocode:true,
 				    success: (res)=>{
 						console.log("gd,res",res)
-						if(uni.getSystemInfoSync().platform == 'android'){
-							uni.chooseLocation({
-								latitude: res.latitude,
-								longitude: res.longitude,
-								success: function(resp) {
-									console.log("选择",resp)
-									_this.value2 = resp.address + resp.name;
-									/**
-									 * 逆地理编码
-									 * 参考 https://lbs.amap.com/api/webservice/guide/api/georegeo
-									 */
-									// uni.request({
-									// 	url:"https://restapi.amap.com/v3/geocode/regeo",
-									// 	method:'get',
-									// 	data: {
-									// 	  location: resp.longitude + "," + resp.latitude,//位置坐标:格式：location=lng<经度>,lat<纬度>
-									// 	  key: '434414855eda40228059e3c5754ccf07',//开发密钥（web服务Key）
-									// 	  radius: 0,
-									// 	  extensions: 'all',//base，返回基本地址信息；all 时会返回基本地址信息、附近 POI 内容、道路信息以及道路交叉口信息
-									// 	  batch: false,
-									// 	  roadlevel: 1
-									// 	},
-									// 	success: function (res) {
-									// 		console.log(res,'====');
-									// 	  const data = res.data.regeocode;
-									// 	  const province = data.addressComponent.province;//省
-									// 	  const city = data.addressComponent.city;//市
-									// 	  const district = data.addressComponent.district;//区
-									// 	  const township = data.addressComponent.township;//街道
-									// 	  const address = township + data?.pois[0]?.name + data?.pois[0]?.address;
-									// 	  const reasult = {
-									// 		  province,
-									// 		  city,
-									// 		  district,
-									// 		  address,
-									// 	  }
-									// 	  success(reasult);
-									// 	},
-									// 	error: function (err) {
-									// 		uni.$u.toast("服务端错误，请重试");
-									// 	}
-									
-									// })
-								},
-							})
-						}else if(uni.getSystemInfoSync().platform == 'ios'){
+						console.log("设备",uni.getSystemInfoSync())
+						
+						if(uni.getSystemInfoSync().uniPlatform == 'app'){
 							
-						}else {
+							if(uni.getSystemInfoSync().platform == 'android'){
+								//android
+								uni.chooseLocation({
+									latitude: res.latitude,
+									longitude: res.longitude,
+									success: function(resp) {
+										console.log("选择",resp)
+										_this.value2 = resp.address + resp.name;
+										/**
+										 * 逆地理编码
+										 * 参考 https://lbs.amap.com/api/webservice/guide/api/georegeo
+										 */
+										// uni.request({
+										// 	url:"https://restapi.amap.com/v3/geocode/regeo",
+										// 	method:'get',
+										// 	data: {
+										// 	  location: resp.longitude + "," + resp.latitude,//位置坐标:格式：location=lng<经度>,lat<纬度>
+										// 	  key: '434414855eda40228059e3c5754ccf07',//开发密钥（web服务Key）
+										// 	  radius: 0,
+										// 	  extensions: 'all',//base，返回基本地址信息；all 时会返回基本地址信息、附近 POI 内容、道路信息以及道路交叉口信息
+										// 	  batch: false,
+										// 	  roadlevel: 1
+										// 	},
+										// 	success: function (res) {
+										// 		console.log(res,'====');
+										// 	  const data = res.data.regeocode;
+										// 	  const province = data.addressComponent.province;//省
+										// 	  const city = data.addressComponent.city;//市
+										// 	  const district = data.addressComponent.district;//区
+										// 	  const township = data.addressComponent.township;//街道
+										// 	  const address = township + data?.pois[0]?.name + data?.pois[0]?.address;
+										// 	  const reasult = {
+										// 		  province,
+										// 		  city,
+										// 		  district,
+										// 		  address,
+										// 	  }
+										// 	  success(reasult);
+										// 	},
+										// 	error: function (err) {
+										// 		uni.$u.toast("服务端错误，请重试");
+										// 	}
+										
+										// })
+									},
+								})
+							}else {
+								//ios
+							}
+							
+						}else if(uni.getSystemInfoSync().uniPlatform == 'mp-weixin'){
 							if(this.formData2.longitude && this.formData2.latitude){
 								uni.navigateTo({
 									url:"/pages/tabbar/tabbar-1/gd-map?lng="+this.formData2.longitude+"&lat="+this.formData2.latitude
