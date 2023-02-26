@@ -1,1 +1,1 @@
-<view class="content">页面 - 4</view>
+<view><view><map style="width:100%;height:200px;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" include-points="{{markers}}" data-event-opts="{{[['tap',[['tap',['$event']]]]]}}" bindtap="__e"></map></view><view></view></view>

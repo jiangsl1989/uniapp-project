@@ -15,12 +15,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var objectKeys = ['qy', 'env', 'error', 'version', 'lanDebug', 'cloud', 'serviceMarket', 'router', 'worklet'];
+var singlePageDisableKey = ['lanDebug', 'router', 'worklet'];
 var target = typeof globalThis !== 'undefined' ? globalThis : function () {
   return this;
 }();
 var key = ['w', 'x'].join('');
 var oldWx = target[key];
+var launchOption = oldWx.getLaunchOptionsSync ? oldWx.getLaunchOptionsSync() : null;
 function isWxKey(key) {
+  if (launchOption && launchOption.scene === 1154 && singlePageDisableKey.includes(key)) {
+    return false;
+  }
   return objectKeys.indexOf(key) > -1 || typeof oldWx[key] === 'function';
 }
 function initWx() {
@@ -1189,7 +1194,7 @@ var promiseInterceptor = {
     });
   }
 };
-var SYNC_API_RE = /^\$|Window$|WindowStyle$|sendHostEvent|sendNativeEvent|restoreGlobal|requireGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64|getLocale|setLocale|invokePushCallback|getWindowInfo|getDeviceInfo|getAppBaseInfo|getSystemSetting|getAppAuthorizeSetting/;
+var SYNC_API_RE = /^\$|Window$|WindowStyle$|sendHostEvent|sendNativeEvent|restoreGlobal|requireGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64|getLocale|setLocale|invokePushCallback|getWindowInfo|getDeviceInfo|getAppBaseInfo|getSystemSetting|getAppAuthorizeSetting|initUTS|requireUTS|registerUTS/;
 var CONTEXT_API_RE = /^create|Manager$/;
 
 // Context例外情况
@@ -1569,6 +1574,8 @@ function populateParameters(result) {
     deviceOrientation = result.deviceOrientation;
   // const isQuickApp = "mp-weixin".indexOf('quickapp-webview') !== -1
 
+  var extraParam = {};
+
   // osName osVersion
   var osName = '';
   var osVersion = '';
@@ -1607,8 +1614,8 @@ function populateParameters(result) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.6.18",
-    uniRuntimeVersion: "3.6.18",
+    uniCompileVersion: "3.7.3",
+    uniRuntimeVersion: "3.7.3",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -1633,7 +1640,7 @@ function populateParameters(result) {
     browserName: undefined,
     browserVersion: undefined
   };
-  Object.assign(result, parameters);
+  Object.assign(result, parameters, extraParam);
 }
 function getGetDeviceType(result, model) {
   var deviceType = result.deviceType || 'phone';
@@ -1752,6 +1759,17 @@ var getAppAuthorizeSetting = {
 
 // import navigateTo from 'uni-helpers/navigate-to'
 
+var compressImage = {
+  args: function args(fromArgs) {
+    // https://developers.weixin.qq.com/community/develop/doc/000c08940c865011298e0a43256800?highLine=compressHeight
+    if (fromArgs.compressedHeight && !fromArgs.compressHeight) {
+      fromArgs.compressHeight = fromArgs.compressedHeight;
+    }
+    if (fromArgs.compressedWidth && !fromArgs.compressWidth) {
+      fromArgs.compressWidth = fromArgs.compressedWidth;
+    }
+  }
+};
 var protocols = {
   redirectTo: redirectTo,
   // navigateTo,  // 由于在微信开发者工具的页面参数，会显示__id__参数，因此暂时关闭mp-weixin对于navigateTo的AOP
@@ -1762,7 +1780,8 @@ var protocols = {
   getAppBaseInfo: getAppBaseInfo,
   getDeviceInfo: getDeviceInfo,
   getWindowInfo: getWindowInfo,
-  getAppAuthorizeSetting: getAppAuthorizeSetting
+  getAppAuthorizeSetting: getAppAuthorizeSetting,
+  compressImage: compressImage
 };
 var todos = ['vibrate', 'preloadPage', 'unPreloadPage', 'loadSubPackage'];
 var canIUses = [];
@@ -2359,7 +2378,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -10503,7 +10522,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -10524,14 +10543,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -10627,7 +10646,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"uniapp-test","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -11268,6 +11287,9 @@ function normalizeComponent (
   }
   // fixed by xxxxxx renderjs
   if (renderjs) {
+    if(typeof renderjs.beforeCreate === 'function'){
+			renderjs.beforeCreate = [renderjs.beforeCreate]
+		}
     (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
       this[renderjs.__module] = this
     });

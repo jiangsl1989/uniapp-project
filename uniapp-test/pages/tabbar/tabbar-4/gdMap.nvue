@@ -1,0 +1,28 @@
+<template>
+	<div>
+		
+	</div>
+</template>
+
+<script>
+import { AMapWX } from "../../../components/gaode/amap-wx.130";
+
+	let amapManager = new AMapManager();
+
+	export default {
+			data() {
+				return {
+					
+				}
+			},
+			methods:{
+				getPlaces(){
+					
+				};
+			}
+	}
+</script>
+
+<style>
+
+</style>

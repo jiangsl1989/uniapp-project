@@ -27,10 +27,11 @@
 </template>
 
 <script>
-// 引入高德地图api提供的微信小程序的接口
+	// 引入高德地图api提供的微信小程序的接口
 	var amapFile = require('@/components/gaode/amap-wx.130.js');//如：..-/..-/libs/amap-wx.js
 	// 创建地图 key
 	var myAmapFun = new amapFile.AMapWX({key: '50397e4b0a0278e59c405c9b69830291'});
+	
 	console.log("创建了高德地图");
 	export default{
 		data(){
